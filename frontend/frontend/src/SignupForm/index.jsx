@@ -1,6 +1,5 @@
 import { useState } from "react";
 
-
 const SignupForm = () => {
 
     const [username, setUsername] = useState('');
@@ -21,16 +20,19 @@ const SignupForm = () => {
             const response = await fetch("http://localhost:5173/signup", {
                 
                 method: 'POST',
-                headers: {'Content-Type': 'application/json',},
+                headers: { 'content-type': 'application/json' },
                 body: JSON.stringify({ username, password }),
             })
 
-           if(!response.ok) {
-                throw new Error("Signup failed");
+           if(response.ok) {
+                console.log("User registed");
+                window.location.href = '../Home/index.jsx'
+               
            }
         
         } catch (error) {
-            console.error("Something wrong =( ", error);
+            console.error("Something wrong to register user ", error);
+
 
         }
     };

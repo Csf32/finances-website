@@ -1,7 +1,9 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import Form from './SignupForm'
+import SignupForm from './SignupForm'
 import './SignupForm'
+import Login from "./Login";
+
 
 function App() {
 
@@ -10,7 +12,8 @@ function App() {
 
   return(
     <div>
-      <Form />
+      <SignupForm />
+
     </div>
   )
 

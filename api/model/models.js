@@ -17,24 +17,14 @@ const nameTable = bank.sequelize.define('logins', {
 
     password:{
         type: bank.Sequelize.STRING,
-     
-    },
-
-    // createdAt: {
-    //     type: bank.Sequelize.DATE,
-    //     allowNull:false,
-    //     defaultValue: bank.Sequelize.literal('DEFAULT CURRENT_TIMESTAMP')
-    // },
-
-    // updatedAt: {
-    //     type: bank.Sequelize.DATE,
-    //     allowNull:false,
-    //     defaultValue: bank.Sequelize.literal('DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
-    // },
-   
-    
+    }     
 })
 
-nameTable.sync({ force: true})
+
+//nameTable.sync({ force: true})
 
 module.exports = nameTable;
+
+
+
+//  userTable.sync({ force: true})
