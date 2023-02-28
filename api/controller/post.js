@@ -1,39 +1,47 @@
 const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
 const userTable = require('../model/models');
+const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const app = express();
+require('dotenv').config();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 // app.cors(cors())
 
+
+
 app.post("/signup", async (req, res) => {
 
     const { username, password } = req.body;
     const cryptographyPassword = await bcrypt.hash(password, 10);
+    const secretKey ='pgjpgjnsogisdtgsdtg';
+     //process.env.SECRET_KEY;
 
     try {
 
         const userExistBank = await userTable.findOne({ where: { username } })
 
             if(userExistBank) {
-                return res.status(400).json("This user already exist")
+                return res.status(400).json("This username already exist, try other")
             }
+          
+        try {
 
-        const createUser = await userTable.create({ username, password:cryptographyPassword });
-            res.status(201).json({ createUser, message: "User created successfully" });
-    
-            
-    
-                // const getToken = jwt.sign({ id: userExistBank.id },"my-key", { expiresIn: '5h'});
+            const createUser = await userTable.create({ username, password:cryptographyPassword });
 
-                // res.json({ getToken })
+            const createTokenUser = jwt.sign({ username }, secretKey, { expiresIn: '2h'});
+
+            res.status(201).json({ createUser, createTokenUser, message: "User created successfully with token jwt" });
+
+        } catch (errortoken) {
+            // res.json(401, "Invalid key", errortoken);
+           res.status(401).json("Invalid key", errortoken)
+        }
+
     }     
-
 
     catch (error) {
         console.error("Something wrong to create router", error);
@@ -43,7 +51,7 @@ app.post("/signup", async (req, res) => {
  
 });
 
-app.post('/signin', async (req, res) => {
+app.post('/signin/user', async (req, res) => {
        
     // const userAlreadyCreate = await user(req.body);
 
