@@ -16,8 +16,11 @@ const sequelize = new Sequelize('users', 'root', 'Superusuario1', {
         console.error("Sorry. Don't were possible to conect with MySQL", error)
        
     }
+    
+
 
     module.exports = {
         sequelize,
-        Sequelize
+        Sequelize,
+
     }
